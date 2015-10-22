@@ -9,3 +9,12 @@ commonly used options.
 The CSS minifier mostly reduces amount of white-space parsing CSS with
 ParseCSS.
 
+CSS can be prefixed with autoprefixer.
+
+You can set the configuration by creating a `postcss.json` file in the `.meteor` folder of your app.
+Example:
+```json
+{
+    "autoprefixer" : { "browsers": ["last 2 versions"] }
+}
+```
