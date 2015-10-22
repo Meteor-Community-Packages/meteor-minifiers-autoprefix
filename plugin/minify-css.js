@@ -3,7 +3,20 @@ var sourcemap = Npm.require('source-map');
 //START AUTOPREFIX
 var autoprefixer = Npm.require('autoprefixer');
 var postcss      = Npm.require('postcss');
-const Future = Npm.require('fibers/future');
+var Future = Npm.require('fibers/future');
+var path = Npm.require('path');
+var fs = Npm.require('fs');
+var configpath = path.join(process.cwd(),'.meteor','postcss.json');
+var config;
+if(!fs.existsSync(configpath)){
+  config = {autoprefixer:{}};
+}else{
+  try{
+    config = JSON.parse(fs.readFileSync(configpath,'utf-8'));
+  }catch(e){
+    throw "Post css configuration file error: "+e;
+  }
+}
 //END AUTOPREFIX
 
 Plugin.registerMinifier({
@@ -16,20 +29,16 @@ Plugin.registerMinifier({
 function CssToolsMinifier () {};
 
 CssToolsMinifier.prototype.processFilesForBundle = function (files, options) {
+
   var mode = options.minifyMode;
 
   if (! files.length) return;
 
   var merged = mergeCss(files);
-  console.log(merged.sourceMap);
 
   //START AUTOPREFIX
   var f = new Future;
-
-  //merged.sourceMap = sourcemap.SourceMapGenerator.fromSourceMap(
-  //  new sourcemap.SourceMapConsumer(merged.sourceMap));
-
-  postcss([ autoprefixer({ browsers: ['> 1%', 'IE 7'] }) ])
+  postcss([ autoprefixer(config.autoprefixer) ])
     .process(merged.code, {
       from:'merged-stylesheets.css',
       to:'merged-stylesheets-prefixed.css',
