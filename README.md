@@ -12,7 +12,7 @@ ParseCSS.
 ## Configuration
 CSS can be prefixed with autoprefixer.
 
-You can set the configuration by creating a `postcss.json` file in the `.meteor` folder of your app.
+You can set the configuration by creating a `postcss.json` file in the root folder of your app.
 Example:
 ```json
 {

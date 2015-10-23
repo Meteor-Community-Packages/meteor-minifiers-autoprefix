@@ -1,7 +1,7 @@
 Package.describe({
-  name: 'standard-minifiers',
-  version: '1.0.1',
-  summary: 'Standard minifiers used with Meteor apps by default.',
+  name: 'seba:minifiers-autoprefixer',
+  version: '0.0.1',
+  summary: 'Standard minifiers used with Meteor apps by default + css autoprefixer.',
   documentation: 'README.md'
 });
 

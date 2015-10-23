@@ -4,9 +4,9 @@ var sourcemap = Npm.require('source-map');
 var autoprefixer = Npm.require('autoprefixer');
 var postcss      = Npm.require('postcss');
 var Future = Npm.require('fibers/future');
-var path = Npm.require('path');
+var path = Plugin.path;
 var fs = Npm.require('fs');
-var configpath = path.join(process.cwd(),'.meteor','postcss.json');
+var configpath = path.join(process.cwd(),'postcss.json');
 var config;
 if(!fs.existsSync(configpath)){
   config = {autoprefixer:{}};
