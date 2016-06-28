@@ -1,9 +1,11 @@
 var sourcemap = Npm.require('source-map');
 
 //START AUTOPREFIX
-var autoprefixer = Npm.require('autoprefixer');
-var postcss      = Npm.require('postcss');
-var Future = Npm.require('fibers/future');
+var autoprefixer  = Npm.require('autoprefixer');
+var postcss       = Npm.require('postcss');
+var Future        = Npm.require('fibers/future');
+var bless         = Npm.require('bless');
+var combineSrcMap = Npm.require('combine-source-map');
 var path = Plugin.path;
 var fs = Npm.require('fs');
 var configpath = path.join(process.cwd(),'postcss.json');
@@ -40,7 +42,6 @@ CssToolsMinifier.prototype.processFilesForBundle = function (files, options) {
   postcss([ autoprefixer(config.autoprefixer) ])
     .process(merged.code, {
       from:'merged-stylesheets.css',
-      to:'merged-stylesheets-prefixed.css',
       map: { inline: false, prev:  merged.sourceMap }
     })
     .then(function (result) {
@@ -56,13 +57,18 @@ CssToolsMinifier.prototype.processFilesForBundle = function (files, options) {
     });
   var result = f.wait();
   //END AUTOPREFIX
-  
+
   if (mode === 'development') {
-    files[0].addStylesheet({
-      data: result.css,
-      sourceMap: result.map.toString(),
-      path: 'merged-stylesheets-prefixed.css'
-    });
+    bless
+      .chunk(result.css)
+      .data
+      .forEach(function(cssString, index) {
+        files[0].addStylesheet({
+          data: cssString,
+          path: 'merged-stylesheets-' + index + '.css'
+        });
+      });
+
     return;
   }
 
@@ -70,9 +76,15 @@ CssToolsMinifier.prototype.processFilesForBundle = function (files, options) {
 
   if (files.length) {
     minifiedFiles.forEach(function (minified) {
-      files[0].addStylesheet({
-        data: minified
-      });
+      bless
+        .chunk(minified)
+        .data
+        .forEach(function(cssString, index) {
+          files[0].addStylesheet({
+            data: cssString
+          });
+        });
+
     });
   }
 };
