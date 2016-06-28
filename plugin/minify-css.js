@@ -5,7 +5,6 @@ var autoprefixer  = Npm.require('autoprefixer');
 var postcss       = Npm.require('postcss');
 var Future        = Npm.require('fibers/future');
 var bless         = Npm.require('bless');
-var combineSrcMap = Npm.require('combine-source-map');
 var path = Plugin.path;
 var fs = Npm.require('fs');
 var configpath = path.join(process.cwd(),'postcss.json');

@@ -14,7 +14,8 @@ Package.registerBuildPlugin({
   npmDependencies: {
     "source-map": "0.5.3",
     "postcss": "5.0.19",
-    "autoprefixer": "6.3.6"
+    "autoprefixer": "6.3.6",
+    "bless": "4.0.3"
   },
   sources: [
     'plugin/minify-css.js'
