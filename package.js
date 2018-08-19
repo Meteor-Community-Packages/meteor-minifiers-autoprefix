@@ -1,6 +1,6 @@
 Package.describe({
   name: 'seba:minifiers-autoprefixer',
-  version: '1.0.1',
+  version: '1.0.2',
   summary: 'Standard minifiers used with Meteor apps by default + css autoprefixer.',
   git: 'https://github.com/sebakerckhof/meteor-minifiers-autoprefix.git',
   documentation: 'README.md'
@@ -12,9 +12,9 @@ Package.registerBuildPlugin({
     'minifier-css@1.1.10'
   ],
   npmDependencies: {
-    "source-map": "0.5.3",
-    "postcss": "5.0.19",
-    "autoprefixer": "6.3.6"
+    "source-map": "0.5.6",
+    "postcss": "7.0.2",
+    "autoprefixer": "9.1.2"
   },
   sources: [
     'plugin/minify-css.js'
