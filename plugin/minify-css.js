@@ -1,4 +1,6 @@
-var sourcemap = Npm.require('source-map');
+var sourcemap = Npm.require("source-map");
+var createHash = Npm.require("crypto").createHash;
+var LRU = Npm.require("lru-cache");
 
 //START AUTOPREFIX
 var autoprefixer = Npm.require('autoprefixer');
@@ -8,19 +10,20 @@ var path = Plugin.path;
 var fs = Npm.require('fs');
 var configpath = path.join(process.cwd(),'postcss.json');
 var config;
-if(!fs.existsSync(configpath)){
-  config = {autoprefixer:{}};
-}else{
-  try{
-    config = JSON.parse(fs.readFileSync(configpath,'utf-8'));
-  }catch(e){
-    throw "Post css configuration file error: "+e;
+
+if (!fs.existsSync(configpath)) {
+  config = { autoprefixer: {} };
+} else {
+  try {
+    config = JSON.parse(fs.readFileSync(configpath, 'utf-8'));
+  } catch (e) {
+    throw 'Post css configuration file error: ' + e;
   }
 }
 //END AUTOPREFIX
-
 Plugin.registerMinifier({
-  extensions: ["css"]
+  extensions: ["css"],
+  archMatching: "web"
 }, function () {
   var minifier = new CssToolsMinifier();
   return minifier;
@@ -39,16 +42,16 @@ CssToolsMinifier.prototype.processFilesForBundle = function (files, options) {
   var f = new Future;
   postcss([ autoprefixer(config.autoprefixer) ])
     .process(merged.code, {
-      from:'merged-stylesheets.css',
-      to:'merged-stylesheets-prefixed.css',
-      map: { inline: false, prev:  merged.sourceMap }
+      from: 'merged-stylesheets.css',
+      to: 'merged-stylesheets-prefixed.css',
+      map: { inline: false, prev: merged.sourceMap }
     })
     .then(function (result) {
       result.warnings().forEach(function (warn) {
         console.warn(warn.toString());
       });
       f.return(result);
-    },function(err){
+    }, function(err) {
       files[0].error({
         message: err
       });
@@ -56,7 +59,6 @@ CssToolsMinifier.prototype.processFilesForBundle = function (files, options) {
     });
   var result = f.wait();
   //END AUTOPREFIX
-  
   if (mode === 'development') {
     files[0].addStylesheet({
       data: result.css,
@@ -77,10 +79,28 @@ CssToolsMinifier.prototype.processFilesForBundle = function (files, options) {
   }
 };
 
+var mergeCache = new LRU({
+  max: 100
+});
+
+var hashFiles = Profile("hashFiles", function (files) {
+  var hash = createHash("sha1");
+  var hashes = files.forEach(f => {
+    hash.update(f.getSourceHash()).update("\0");
+  });
+  return hash.digest("hex");
+});
+
 // Lints CSS files and merges them into one file, fixing up source maps and
 // pulling any @import directives up to the top since the CSS spec does not
 // allow them to appear in the middle of a file.
 var mergeCss = Profile("mergeCss", function (css) {
+  var hashOfFiles = hashFiles(css);
+  var merged = mergeCache.get(hashOfFiles);
+  if (merged) {
+    return merged;
+  }
+
   // Filenames passed to AST manipulator mapped to their original files
   var originals = {};
 
@@ -127,7 +147,8 @@ var mergeCss = Profile("mergeCss", function (css) {
   });
 
   if (! stringifiedCss.code) {
-    return { code: '' };
+    mergeCache.set(hashOfFiles, merged = { code: '' });
+    return merged;
   }
 
   // Add the contents of the input files to the source map of the new file
@@ -136,33 +157,103 @@ var mergeCss = Profile("mergeCss", function (css) {
       return originals[filename].getContentsAsString();
     });
 
-  var newMap;
+  // Compose the concatenated file's source map with source maps from the
+  // previous build step if necessary.
+  var newMap = Profile.time("composing source maps", function () {
+    var newMap = new sourcemap.SourceMapGenerator();
+    var concatConsumer = new sourcemap.SourceMapConsumer(stringifiedCss.map);
 
-  Profile.time("composing source maps", function () {
-    // If any input files had source maps, apply them.
-    // Ex.: less -> css source map should be composed with css -> css source map
-    newMap = sourcemap.SourceMapGenerator.fromSourceMap(
-      new sourcemap.SourceMapConsumer(stringifiedCss.map));
+    // Create a dictionary of source map consumers for fast access
+    var consumers = Object.create(null);
 
     Object.keys(originals).forEach(function (name) {
       var file = originals[name];
-      if (! file.getSourceMap())
-        return;
-      try {
-        newMap.applySourceMap(
-          new sourcemap.SourceMapConsumer(file.getSourceMap()), name);
-      } catch (err) {
-        // If we can't apply the source map, silently drop it.
-        //
-        // XXX This is here because there are some less files that
-        // produce source maps that throw when consumed. We should
-        // figure out exactly why and fix it, but this will do for now.
+      var sourceMap = file.getSourceMap();
+
+      if (sourceMap) {
+        try {
+          consumers[name] = new sourcemap.SourceMapConsumer(sourceMap);
+        } catch (err) {
+          // If we can't apply the source map, silently drop it.
+          //
+          // XXX This is here because there are some less files that
+          // produce source maps that throw when consumed. We should
+          // figure out exactly why and fix it, but this will do for now.
+        }
       }
     });
+
+    // Maps each original source file name to the SourceMapConsumer that
+    // can provide its content.
+    var sourceToConsumerMap = Object.create(null);
+
+    // Find mappings from the concatenated file back to the original files
+    concatConsumer.eachMapping(function (mapping) {
+      var source = mapping.source;
+      var consumer = consumers[source];
+
+      var original = {
+        line: mapping.originalLine,
+        column: mapping.originalColumn
+      };
+
+      // If there is a source map for the original file, e.g., if it has been
+      // compiled from Less to CSS, find the source location in the original's
+      // original file. Otherwise, use the mapping of the concatenated file's
+      // source map.
+      if (consumer) {
+        var newOriginal = consumer.originalPositionFor(original);
+
+        // Finding the original position should always be possible (otherwise,
+        // one of the source maps would have incorrect mappings). However, in
+        // case there is something wrong, use the intermediate mapping.
+        if (newOriginal.source !== null) {
+          original = newOriginal;
+          source = original.source;
+
+          if (source) {
+            // Since the new consumer provided a different
+            // original.source, we should ask it for the original source
+            // content instead of asking the concatConsumer.
+            sourceToConsumerMap[source] = consumer;
+          }
+        }
+      }
+
+      if (source && ! sourceToConsumerMap[source]) {
+        // If we didn't set sourceToConsumerMap[source] = consumer above,
+        // use the concatConsumer to determine the original content.
+        sourceToConsumerMap[source] = concatConsumer;
+      }
+
+      // Add a new mapping to the final source map
+      newMap.addMapping({
+        generated: {
+          line: mapping.generatedLine,
+          column: mapping.generatedColumn
+        },
+        original: original,
+        source: source
+      });
+    });
+
+    // The consumer.sourceContentFor and newMap.setSourceContent methods
+    // are relatively fast, but not entirely trivial, so it's better to
+    // call them only once per source, rather than calling them every time
+    // we call newMap.addMapping in the loop above.
+    Object.keys(sourceToConsumerMap).forEach(function (source) {
+      var consumer = sourceToConsumerMap[source];
+      var content = consumer.sourceContentFor(source);
+      newMap.setSourceContent(source, content);
+    });
+
+    return newMap;
   });
 
-  return {
+  mergeCache.set(hashOfFiles, merged = {
     code: stringifiedCss.code,
     sourceMap: newMap.toString()
-  };
+  });
+
+  return merged;
 });
