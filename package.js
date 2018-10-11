@@ -13,10 +13,10 @@ Package.registerBuildPlugin({
   ],
   npmDependencies: {
     "source-map": "0.5.6",
-    "lru-cache": "4.0.1",
-    "postcss": "7.0.2",
-    "autoprefixer": "9.1.2",
-    "@babel/runtime": "7.0.0"
+    "lru-cache": "4.1.3",
+    "postcss": "7.0.5",
+    "autoprefixer": "9.1.5",
+    "@babel/runtime": "7.1.2"
   },
   sources: [
     'plugin/minify-css.js'
