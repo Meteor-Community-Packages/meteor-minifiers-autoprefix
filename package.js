@@ -13,9 +13,9 @@ Package.registerBuildPlugin({
   ],
   npmDependencies: {
     "source-map": "0.5.6",
-    "lru-cache": "4.1.3",
-    "postcss": "7.0.5",
-    "autoprefixer": "9.1.5",
+    "lru-cache": "5.1.1",
+    "postcss": "7.0.14",
+    "autoprefixer": "9.5.0",
     "@babel/runtime": "7.1.2"
   },
   sources: [
