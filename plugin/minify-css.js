@@ -3,10 +3,11 @@ import { createHash } from "crypto";
 import LRU from "lru-cache";
 
 //START AUTOPREFIX
-const autoprefixer = Npm.require('autoprefixer');
-const postcss      = Npm.require('postcss');
+import autoprefixer from 'autoprefixer';
+import postcss from 'postcss';
+import fs from 'fs';
+
 const path = Plugin.path;
-const fs = Npm.require('fs');
 const configpath = path.join(process.cwd(),'postcss.json');
 
 let config;
