@@ -2,69 +2,69 @@
   "lockfileVersion": 1,
   "dependencies": {
     "@babel/runtime": {
-      "version": "7.1.2",
-      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/@babel/runtime/-/runtime-7.1.2.tgz",
-      "integrity": "sha1-gciZNfRkdwb8VFQRRea07P70uOM="
-    },
-    "ansi-styles": {
-      "version": "3.2.1",
-      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/ansi-styles/-/ansi-styles-3.2.1.tgz",
-      "integrity": "sha1-QfuyAkPlCxK+DwS43tvwdSDOhB0="
+      "version": "7.11.2",
+      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/@babel/runtime/-/runtime-7.11.2.tgz",
+      "integrity": "sha1-9UnBPHVMxAuHZEufqfCaapX+BzY="
     },
     "autoprefixer": {
-      "version": "9.1.5",
-      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/autoprefixer/-/autoprefixer-9.1.5.tgz",
-      "integrity": "sha1-hnX9jRwNQwafOxmiwxbzUk5PZnE="
+      "version": "10.0.1",
+      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/autoprefixer/-/autoprefixer-10.0.1.tgz",
+      "integrity": "sha1-4tkAD4Tr2Y13t7wW+K2y/x97uUY="
     },
     "browserslist": {
-      "version": "4.2.0",
-      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/browserslist/-/browserslist-4.2.0.tgz",
-      "integrity": "sha1-Pl5e33+pdY3tCIXPiMHkvnU6WRw="
+      "version": "4.14.5",
+      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/browserslist/-/browserslist-4.14.5.tgz",
+      "integrity": "sha1-HHUUYaEC3cYOQJk2ObcJvn8sQBU="
     },
     "caniuse-lite": {
-      "version": "1.0.30000890",
-      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/caniuse-lite/-/caniuse-lite-1.0.30000890.tgz",
-      "integrity": "sha1-hqGP/MZdeexqQ36YV2G4vxxO/q8="
+      "version": "1.0.30001142",
+      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/caniuse-lite/-/caniuse-lite-1.0.30001142.tgz",
+      "integrity": "sha1-qFGP21/uA62VrJ8yqaHlmZRpwlA="
     },
-    "chalk": {
-      "version": "2.4.1",
-      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/chalk/-/chalk-2.4.1.tgz",
-      "integrity": "sha1-GMSasWoDe26wFSzIPjRxM4IVtm4="
-    },
-    "color-convert": {
-      "version": "1.9.3",
-      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/color-convert/-/color-convert-1.9.3.tgz",
-      "integrity": "sha1-u3GFBpDh8TZWfeYp0tVHHe2kweg="
-    },
-    "color-name": {
-      "version": "1.1.3",
-      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/color-name/-/color-name-1.1.3.tgz",
-      "integrity": "sha1-p9BVi9icQveV3UIyj3QIMcpTvCU="
+    "colorette": {
+      "version": "1.2.1",
+      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/colorette/-/colorette-1.2.1.tgz",
+      "integrity": "sha1-TQuSEyXBT6+SYzCGpTbbbolWSxs="
     },
     "electron-to-chromium": {
-      "version": "1.3.78",
-      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/electron-to-chromium/-/electron-to-chromium-1.3.78.tgz",
-      "integrity": "sha1-7LcrWxZrplmO+zhEYdY8rXRnjr8="
+      "version": "1.3.576",
+      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/electron-to-chromium/-/electron-to-chromium-1.3.576.tgz",
+      "integrity": "sha1-LnAjRITgPXx+kDENfXn9N3U3nDQ="
     },
-    "escape-string-regexp": {
-      "version": "1.0.5",
-      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz",
-      "integrity": "sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ="
+    "escalade": {
+      "version": "3.1.0",
+      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/escalade/-/escalade-3.1.0.tgz",
+      "integrity": "sha1-6OLXx6i3b27mTCGB1rgVFEFgLU4="
     },
-    "has-flag": {
-      "version": "3.0.0",
-      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/has-flag/-/has-flag-3.0.0.tgz",
-      "integrity": "sha1-tdRU3CGZriJWmfNGfloH87lVuv0="
+    "isarray": {
+      "version": "1.0.0",
+      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/isarray/-/isarray-1.0.0.tgz",
+      "integrity": "sha1-u5NdSFgsuhaMBoNJV6VKPgcSTxE="
+    },
+    "isobject": {
+      "version": "2.1.0",
+      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/isobject/-/isobject-2.1.0.tgz",
+      "integrity": "sha1-8GVWEJaj8dou9GJy+BXIQNh+DIk="
+    },
+    "line-column": {
+      "version": "1.0.2",
+      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/line-column/-/line-column-1.0.2.tgz",
+      "integrity": "sha1-0lryk2tvSEkXKzEuR5LR2Ye8NKI="
     },
     "lru-cache": {
-      "version": "4.1.3",
-      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/lru-cache/-/lru-cache-4.1.3.tgz",
-      "integrity": "sha1-oRdc80lt/IQ2wVbDNLSVWZK85pw="
+      "version": "6.0.0",
+      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/lru-cache/-/lru-cache-6.0.0.tgz",
+      "integrity": "sha1-bW/mVw69lqr5D8rR2vo7JWbbOpQ="
+    },
+    "nanoid": {
+      "version": "3.1.12",
+      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/nanoid/-/nanoid-3.1.12.tgz",
+      "integrity": "sha1-b3c2xi6NOUIWAeSgx3YjqX6mllQ="
     },
     "node-releases": {
-      "version": "1.0.0-alpha.12",
-      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/node-releases/-/node-releases-1.0.0-alpha.12.tgz",
-      "integrity": "sha1-MuRhuHnqdqxnTlEdmDLPKdo0Umg="
+      "version": "1.1.61",
+      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/node-releases/-/node-releases-1.1.61.tgz",
+      "integrity": "sha1-cHsPypzk4ReDYSukovy6CQR68W4="
     },
     "normalize-range": {
       "version": "0.1.2",
@@ -77,9 +77,9 @@
       "integrity": "sha1-b2gragJ6Tp3fpFZM0lidHU5mnt4="
     },
     "postcss": {
-      "version": "7.0.5",
-      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/postcss/-/postcss-7.0.5.tgz",
-      "integrity": "sha1-cOZEPjam1SCw/U51k/zKNjXun1U=",
+      "version": "8.1.1",
+      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/postcss/-/postcss-8.1.1.tgz",
+      "integrity": "sha1-w6KH3RDk9shMs3kQUrlqXYWck4k=",
       "dependencies": {
         "source-map": {
           "version": "0.6.1",
@@ -89,39 +89,24 @@
       }
     },
     "postcss-value-parser": {
-      "version": "3.3.0",
-      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/postcss-value-parser/-/postcss-value-parser-3.3.0.tgz",
-      "integrity": "sha1-h/OPnxj3dKSrTIojL1xc6IcqnRU="
-    },
-    "pseudomap": {
-      "version": "1.0.2",
-      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/pseudomap/-/pseudomap-1.0.2.tgz",
-      "integrity": "sha1-8FKijacOYYkX7wqKw0wa5aaChrM="
+      "version": "4.1.0",
+      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/postcss-value-parser/-/postcss-value-parser-4.1.0.tgz",
+      "integrity": "sha1-RD9qIM7WSBor2k+oUypuVdeJoss="
     },
     "regenerator-runtime": {
-      "version": "0.12.1",
-      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/regenerator-runtime/-/regenerator-runtime-0.12.1.tgz",
-      "integrity": "sha1-+hpxVEdkwDb4xJsToIsllMn4oN4="
-    },
-    "semver": {
-      "version": "5.6.0",
-      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/semver/-/semver-5.6.0.tgz",
-      "integrity": "sha1-fnQlb7qknHWqfHogXMInmcrIAAQ="
+      "version": "0.13.7",
+      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/regenerator-runtime/-/regenerator-runtime-0.13.7.tgz",
+      "integrity": "sha1-ysLazIoepnX+qrrriugziYrkb1U="
     },
     "source-map": {
-      "version": "0.5.6",
-      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/source-map/-/source-map-0.5.6.tgz",
-      "integrity": "sha1-dc449SvwczxafwwRjYEzSiu19BI="
-    },
-    "supports-color": {
-      "version": "5.5.0",
-      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/supports-color/-/supports-color-5.5.0.tgz",
-      "integrity": "sha1-4uaaRKyHcveKHsCzW2id9lMO/I8="
+      "version": "0.7.3",
+      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/source-map/-/source-map-0.7.3.tgz",
+      "integrity": "sha1-UwL4FpAxc1ImVECS5kmB91F1A4M="
     },
     "yallist": {
-      "version": "2.1.2",
-      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/yallist/-/yallist-2.1.2.tgz",
-      "integrity": "sha1-HBH5IY8HYImkfdUS+TxmmaaoHVI="
+      "version": "4.0.0",
+      "resolved": "https://bin.barco.com/artifactory/api/npm/npm-virtual/yallist/-/yallist-4.0.0.tgz",
+      "integrity": "sha1-m7knkNnA7/7GO+c1GeEaNQGaOnI="
     }
   }
 }

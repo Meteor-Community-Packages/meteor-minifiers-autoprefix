@@ -10,6 +10,10 @@ For Meteor `1.2` use version `0.0.2`, you will need to remove the `standard-mini
 For Meteor `1.3+` use version `1.1.1`
 You will need to remove the `standard-minifier-css` package, but leave the `standard-minifier-js` package.
 
+For Meteor `1.9+` use version `2.0.0`
+You will need to remove the `standard-minifier-css` package, but leave the `standard-minifier-js` package.
+
+
 ## Configuration
 
 You can set the autoprefix configuration by creating a `postcss.json` file in the root folder of your app.
