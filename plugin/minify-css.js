@@ -39,8 +39,6 @@ class CssToolsMinifier {
   
     const merged = await mergeCss(files);
 
-    console.log(merged.sourceMap);
-  
     //START AUTOPREFIX
     let result;
     try {

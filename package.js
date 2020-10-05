@@ -1,6 +1,6 @@
 Package.describe({
   name: 'seba:minifiers-autoprefixer',
-  version: '2.0.0',
+  version: '2.0.1',
   summary: 'Standard minifiers used with Meteor apps by default + css autoprefixer.',
   git: 'https://github.com/sebakerckhof/meteor-minifiers-autoprefix.git',
   documentation: 'README.md'
