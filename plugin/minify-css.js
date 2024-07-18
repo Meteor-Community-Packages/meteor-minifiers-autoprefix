@@ -1,6 +1,7 @@
 import sourcemap from "source-map";
 import { createHash } from "crypto";
-import LRU from "lru-cache";
+import { LRUCache } from "lru-cache";
+import { CssTools } from 'meteor/minifier-css'
 
 //START AUTOPREFIX
 import autoprefixer from 'autoprefixer';
@@ -43,11 +44,11 @@ class CssToolsMinifier {
     let result;
     try {
       result = await postcss([ autoprefixer(config.autoprefixer) ])
-      .process(merged.code, {
-        from: 'merged-stylesheets.css',
-        to: 'merged-stylesheets-prefixed.css',
-        map: { inline: false, prev: merged.sourceMap }
-      });
+        .process(merged.code, {
+          from: 'merged-stylesheets.css',
+          to: 'merged-stylesheets-prefixed.css',
+          map: { inline: false, prev: merged.sourceMap }
+        });
       result.warnings().forEach(function (warn) {
         console.warn(warn.toString());
       });
@@ -68,7 +69,7 @@ class CssToolsMinifier {
       return;
     }
   
-    const minifiedFiles = CssTools.minifyCss(result.css);
+    const minifiedFiles = await CssTools.minifyCssAsync(result.css);
   
     if (files.length) {
       minifiedFiles.forEach(function (minified) {
@@ -82,7 +83,7 @@ class CssToolsMinifier {
 }
 
 
-const mergeCache = new LRU({
+const mergeCache = new LRUCache({
   max: 100
 });
 
